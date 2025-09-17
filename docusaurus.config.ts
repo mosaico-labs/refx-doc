@@ -16,7 +16,7 @@ const config: Config = {
 
   // Set the production url of your site here
   //https://<YOUR_GITHUB_USERNAME>.github.io/<YOUR_REPO_NAME>/
-  url: 'https://mosaico-labs.github.io/refx-doc',
+  url: 'https://mosaico-labs.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/refx-doc/',
