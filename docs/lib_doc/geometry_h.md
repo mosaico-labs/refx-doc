@@ -365,7 +365,7 @@ The type provides the following **member functions**:
 
 ### Specializations for Non-Cartesian Frames
 
-These specializations are for frames with [`SemanticAxis`](frames_h#axis-semantic) `axis` type (non-cartesian, mixed frames). They represent **differential quantities** and are typically the result of subtracting two [`Coordinate3D`](#coordinates) objects. Standard geometric operations like cross/dot products are not physically meaningful for these types and are forbidden via compile-time error.
+These specializations are for frames with [`SemanticAxis`](frames_h#semantic-non-cartesian-axis) `axis` type (non-cartesian, mixed frames). They represent **differential quantities** and are typically the result of subtracting two [`Coordinate3D`](#coordinates) objects. Standard geometric operations like cross/dot products are not physically meaningful for these types and are forbidden via compile-time error.
 
 All angular vector components are stored internally in **degrees**.
 
@@ -487,17 +487,17 @@ double d_lon_rad = new_aer_vec.delta_longitude(AngleUnit::Rad); // returns -8.72
 
 The header defines a set of operators that enforce compile-time frame safety: operations between vectors of different frames will result in a compile-time error.
 
-  * `operator+ (Vector3D, Vector3D)`: Returns the **sum** of the two vectors. For frames with [`SemanticAxis`](frames_h#axis-semantic) `axis` type, this uses specialized logic like shortest-angle difference.
+  * `operator+ (Vector3D, Vector3D)`: Returns the **sum** of the two vectors. For frames with [`SemanticAxis`](frames_h#semantic-non-cartesian-axis) `axis` type, this uses specialized logic like shortest-angle difference.
 
-  * `operator- (Vector3D, Vector3D)`: Returns the **difference** between the two vectors. For frames with [`SemanticAxis`](frames_h#axis-semantic) `axis` type, this uses specialized logic like shortest-angle difference.
+  * `operator- (Vector3D, Vector3D)`: Returns the **difference** between the two vectors. For frames with [`SemanticAxis`](frames_h#semantic-non-cartesian-axis) `axis` type, this uses specialized logic like shortest-angle difference.
   
-  * `operator* (Vector3D, T)` or `(T, Vector3D)`: Returns a new `Vector3D` scaled by a scalar value. For frames with [`SemanticAxis`](frames_h#axis-semantic) `axis` type, this uses specialized logic like shortest-angle difference.
+  * `operator* (Vector3D, T)` or `(T, Vector3D)`: Returns a new `Vector3D` scaled by a scalar value. For frames with [`SemanticAxis`](frames_h#semantic-non-cartesian-axis) `axis` type, this uses specialized logic like shortest-angle difference.
   
-  * `operator/ (Vector3D, T)`: Returns a new `Vector3D` with each component divided by a scalar value. For frames with [`SemanticAxis`](frames_h#axis-semantic) `axis` type, this uses specialized logic like shortest-angle difference.
+  * `operator/ (Vector3D, T)`: Returns a new `Vector3D` with each component divided by a scalar value. For frames with [`SemanticAxis`](frames_h#semantic-non-cartesian-axis) `axis` type, this uses specialized logic like shortest-angle difference.
   
-  * `cross(Vector3D, Vector3D)`: Computes the **cross product**. Meaningful only for Cartesian frames. The operator is forbidden for frames with [`SemanticAxis`](frames_h#axis-semantic) `axis` type.
+  * `cross(Vector3D, Vector3D)`: Computes the **cross product**. Meaningful only for Cartesian frames. The operator is forbidden for frames with [`SemanticAxis`](frames_h#semantic-non-cartesian-axis) `axis` type.
   
-  * `dot(Vector3D, Vector3D)`: Computes the **dot product**. Meaningful only for Cartesian frames. The operator is forbidden for frames with [`SemanticAxis`](frames_h#axis-semantic) `axis` type.
+  * `dot(Vector3D, Vector3D)`: Computes the **dot product**. Meaningful only for Cartesian frames. The operator is forbidden for frames with [`SemanticAxis`](frames_h#semantic-non-cartesian-axis) `axis` type.
 
 <!-- end list -->
 
@@ -577,7 +577,7 @@ refx::Vector3D<refx::ned> ned_vec = ned_coord.as_vector();
 
 ### Specializations for Non-Cartesian Frames
 
-The specializations of the template struct `Coordinate3D<Frame, T>` are provided for the frames with [`SemanticAxis`](frames_h#axis-semantic) `axis` type (non-cartesian, mixed frames), that necessitate a different accessors and allowed operators. These specializations inherit from the user-restricted struct `internal::VectorContainer3D` the [base vector accessors](#base-vector-accessors) and data container; this allows disabling meaningless vector operations at compile time (like [*cross/dot* products](#arithmetic-operators) defined for [`Vector3D<Frame, T>`](#vectors)).
+The specializations of the template struct `Coordinate3D<Frame, T>` are provided for the frames with [`SemanticAxis`](frames_h#semantic-non-cartesian-axis) `axis` type (non-cartesian, mixed frames), that necessitate a different accessors and allowed operators. These specializations inherit from the user-restricted struct `internal::VectorContainer3D` the [base vector accessors](#base-vector-accessors) and data container; this allows disabling meaningless vector operations at compile time (like [*cross/dot* products](#arithmetic-operators) defined for [`Vector3D<Frame, T>`](#vectors)).
 
 All the angular coordinate components are stored internally in **degrees**.
 
@@ -716,7 +716,7 @@ double el_rad = new_aer_pos.elevation(AngleUnit::Rad); // returns 0.1767
 
 The header defines a set of operators that enforce correct affine space mathematics at compile time.
 
-* `operator+ (Coordinate3D, Coordinate3D)`: This operator results in a compile-time error via `static_assert(false, ...)`. Adding two absolute positions is assumed a physically [meaningless operation](../doc.md#mathematical-operations).
+* `operator+ (Coordinate3D, Coordinate3D)`: This operator results in a compile-time error via `static_assert(false, ...)`. Adding two absolute positions is assumed a physically [meaningless operation](../intro#mathematical-operations).
 
 * `operator- (Coordinate3D, Coordinate3D)`: Returns the **displacement** [`Vector3D<Frame, T>`](#vectors) in the same `Frame` of the input coordinates, directed from the left-side operand to the right-side operand. For non-cartesian frames like [`lla`](frames_h#latitude-longitude-altitude-lla), this operation uses specialized logic to handle angular wrap-arounds.
 

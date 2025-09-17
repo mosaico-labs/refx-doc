@@ -135,7 +135,7 @@ Coordinate3D<frameTo, T> frame_transform(const Coordinate3D<frameFrom, T>& from,
 #### API Template Parameters
 
 * **`frameFrom` / `frameTo`**
-    * **Constraint**: One must be a [**`FrameTag::Geocentric`**](frames_h#geocentric) frame and the other must be a [**`FrameTag::LocalTangent`**](frames_h#local-tangent) [`DirectionalAxis`](frames_h#directional-cartesian-axis) frame.
+    * **Constraint**: One must be a [**`FrameTag::Geocentric`**](frames_h#geocentric) frame and the other must be a [**`FrameTag::LocalTangent`**](frames_h#localtangent) [`DirectionalAxis`](frames_h#directional-cartesian-axis) frame.
         * **Accepted Geocentric Types**: [`lla`](frames_h#latitude-longitude-altitude-lla), [`lld`](frames_h#latitude-longitude-down-lld), [`ecef`](frames_h#earth-centered-earth-fixed-ecef).
         * **Accepted Local-Tangent Types**: [`ned`](frames_h#north-east-down-ned), [`enu`](frames_h#east-north-up-enu), [`nwu`](frames_h#north-west-up-nwu), *`user-defined`* frames.
 
@@ -162,11 +162,11 @@ auto target_lla_again = refx::frame_transform<refx::lla>(target_ned, local_origi
 ```
 
 :::note
-The API automatically supports any [user-defined](../intro#types-customization) [`DirectionalAxis`](frames_h#directional-cartesian-axis) frames with [`FrameTag::LocalTangent`](frames_h#local-tangent) without requiring extension of the library.
+The API automatically supports any [user-defined](../intro#types-customization) [`DirectionalAxis`](frames_h#directional-cartesian-axis) frames with [`FrameTag::LocalTangent`](frames_h#localtangent) without requiring extension of the library.
 
 The customization of this transformation for user-defined frames with [`FrameTag::Geocentric`](frames_h#geocentric) needs extension of the library and it is still **not supported**.
 
-The current version of the library does not allow to pass [**`FrameTag::LocalTangent`**](frames_h#local-tangent) frame with [`SemanticAxis`](frames_h#semantic-non-cartesian-axis) axis category, like the [`Azimuth-Elevation-Range (aer)`](frames_h#azimuth-elevation-range-aer) frame. This issue will be fixed in future versions. With the current version of the library, any transformation `aer`↔*Geocentric* can be made by chaining the conversion via an intermediate Cartesian local-tangent frame (like `ned`): `aer`↔**`ned`**↔*Geocentric*. The first conversion can be made by calling the [**Polar ↔ Cartesian Transformation** API](#Polar--cartesian-transformations-eg-ned--aer), and then perform the final conversion `ned`↔*Geocentric* as already showed in this section.
+The current version of the library does not allow to pass [**`FrameTag::LocalTangent`**](frames_h#localtangent) frame with [`SemanticAxis`](frames_h#semantic-non-cartesian-axis) axis category, like the [`Azimuth-Elevation-Range (aer)`](frames_h#azimuth-elevation-range-aer) frame. This issue will be fixed in future versions. With the current version of the library, any transformation `aer`↔*Geocentric* can be made by chaining the conversion via an intermediate Cartesian local-tangent frame (like `ned`): `aer`↔**`ned`**↔*Geocentric*. The first conversion can be made by calling the [**Polar ↔ Cartesian Transformation** API](#polar--cartesian-transformations-eg-ned--aer), and then perform the final conversion `ned`↔*Geocentric* as already showed in this section.
 :::
 
 **Frame-safety**
@@ -240,7 +240,7 @@ auto point_ecef = refx::frame_transform<refx::ecef>(point_ned);
 
 ### Applying a Pose (SE(3) Transformation)
 
-This overload applies a full rigid body [`Transformation`](geometry_h#transformations) to a [`Vector3D`](geometry_h#vectors) or [`Coordinate3D`](geometry_h#coordinates). It is the primary method for transforming quantities between frames with different origins and orientations in a **Cartesian space**, for example from a vehicle's **[`FrameTag::Body`](frames_h#body) or [`FrameTag::Sensor`](frames_h#sensor) frame to a (navigation) [`FrameTag::LocalTangent`](frames_h#local-tangent) frame**.
+This overload applies a full rigid body [`Transformation`](geometry_h#transformations) to a [`Vector3D`](geometry_h#vectors) or [`Coordinate3D`](geometry_h#coordinates). It is the primary method for transforming quantities between frames with different origins and orientations in a **Cartesian space**, for example from a vehicle's **[`FrameTag::Body`](frames_h#body) or [`FrameTag::Sensor`](frames_h#sensor) frame to a (navigation) [`FrameTag::LocalTangent`](frames_h#localtangent) frame**.
 
 ```cpp
 template <typename frameTo, typename frameFrom, /* ... */>
