@@ -54,7 +54,7 @@ auto target_flu = refx::frame_cast<refx::flu>(target_body); // result is Coordin
 ```
 
 :::info
-The API automatically supports any [user-defined](../intro#types-customization) [`DirectionalAxis`](frames_h#directional-cartesian-axis) frame without requiring extension of the library code.
+The API automatically supports any [user-defined](../short_doc#types-customization) [`DirectionalAxis`](frames_h#directional-cartesian-axis) frame without requiring extension of the library code.
 :::
 
 **Frame-safety**
@@ -105,7 +105,7 @@ auto ecef_coord = refx::frame_transform<refx::ecef>(lla_coord, earth);
 :::note
 In the versions 0.2.x of the library, the current transformation should be used for converting between `lla` and `lld` also, despite the two frames do not need the `EarthModel`context and a simple axis-shuffle would be sufficient for conversion. This issue will be fixed in version 0.3.0.
 
-The customization of this transformation for [user-defined](../intro#types-customization) frames with [`FrameTag::Geocentric`](frames_h#geocentric) frame-tag needs extension of the library and it is still **not supported**.
+The customization of this transformation for [user-defined](../short_doc#types-customization) frames with [`FrameTag::Geocentric`](frames_h#geocentric) frame-tag needs extension of the library and it is still **not supported**.
 :::
 
 **Frame-safety**
@@ -162,7 +162,7 @@ auto target_lla_again = refx::frame_transform<refx::lla>(target_ned, local_origi
 ```
 
 :::note
-The API automatically supports any [user-defined](../intro#types-customization) [`DirectionalAxis`](frames_h#directional-cartesian-axis) frames with [`FrameTag::LocalTangent`](frames_h#localtangent) without requiring extension of the library.
+The API automatically supports any [user-defined](../short_doc#types-customization) [`DirectionalAxis`](frames_h#directional-cartesian-axis) frames with [`FrameTag::LocalTangent`](frames_h#localtangent) without requiring extension of the library.
 
 The customization of this transformation for user-defined frames with [`FrameTag::Geocentric`](frames_h#geocentric) needs extension of the library and it is still **not supported**.
 
@@ -210,7 +210,7 @@ auto point_aer = refx::frame_transform<refx::aer>(point_ned);
 
 
 :::tip
-While the library's only built-in frame in [`axis_aer`](frameaxis#semantic-axis-mixed-sphericallinear) axis semantics is [`aer`](frames_h#azimuth-elevation-range-aer), the API will automatically support any [user-defined](../intro#types-customization) frame that uses the same `axis_aer` semantics.
+While the library's only built-in frame in [`axis_aer`](frameaxis#semantic-axis-mixed-sphericallinear) axis semantics is [`aer`](frames_h#azimuth-elevation-range-aer), the API will automatically support any [user-defined](../short_doc#types-customization) frame that uses the same `axis_aer` semantics.
 For example, the user could define a `radar` [`FrameTag::Sensor`](frames_h#sensor) frame and directly transform its coordinates into another (Cartesian) **sensor** frame, such as [`imu`](frames_h#imu-imu):
 ```cpp
 // file: my_frames.h

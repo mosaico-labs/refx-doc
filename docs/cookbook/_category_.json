@@ -1,0 +1,8 @@
+{
+  "label": "The refx Cookbook",
+  "position": 5,
+  "link": {
+    "type": "generated-index",
+    "description": "A collection of practical, real-world recipes designed to help you solve common problems in robotics and navigation."
+  }
+}

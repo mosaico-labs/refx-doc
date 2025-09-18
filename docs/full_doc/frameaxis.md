@@ -1,6 +1,15 @@
+---
+sidebar_position: 6
+---
+
 # Frame Axis Reference
 
+This page provides a comprehensive list of the standard frame axis references available in the library.
+
 ## Directional Axis (Cartesian)
+
+This is the set of all the possible right-handed axis reference for a standard Cartesian coordinate system (X, Y, Z). The library offers pre-defined axis configurations for various conventions used in robotics and navigation. Each entry in the table corresponds to a static axis type that you can use when defining a custom frame.
+
 | Axis | Description |
 | :--- | :--- |
 | **X: Forward or Backward** | |
@@ -32,6 +41,8 @@
 | `axis_dbl` | `DirectionalAxis<AxisDirection::Down, AxisDirection::Back, AxisDirection::Left>`|
 
 ## Semantic Axis (Mixed Spherical/Linear)
+
+This type of axis reference is used for more specialized coordinate systems, such as those combining spherical coordinates (e.g., Latitude, Longitude, Azimuth) with linear measurements (e.g., Altitude, Down, Range). These are essential for applications like GPS, geospatial data, and sensor data.
 
 | Axis | Description |
 | :--- | :--- |

@@ -15,7 +15,7 @@ This header defines the frame-aware geometric types of the library, for represen
 
 The class needed to represent frame-aware **3D vectors** is `Vector3D<Frame, T>`. The type is a template that accepts two parameters: the [reference frame](frames_h#frames-1) (`Frame`) and the type that defines the numerical precision employed for representing the vector elements (`T`). The default value for the numerical precision is `double`.
 
-The generic (non-specialized) template struct can be used with all the default (or [user-defined](../intro#types-customization)) [frame](frames_h#frames-1) types with **[`DirectionalAxis`](frames_h#directional-cartesian-axis) `axis` configuration** (Cartesian frames) 
+The generic (non-specialized) template struct can be used with all the default (or [user-defined](../short_doc#types-customization)) [frame](frames_h#frames-1) types with **[`DirectionalAxis`](frames_h#directional-cartesian-axis) `axis` configuration** (Cartesian frames) 
 Both the generic template struct and its specializations publicly inherit from a user-restricted `internal::VectorContainer3D`, allowing them to leverage the same **data storage, constructors and base vector accessors**.
 
 The list of non-specialized frame-aware vectors that the library provides by default are:
@@ -523,7 +523,7 @@ auto v_cross = cross(v1, v2); // Result: [11, -28, 15]
 
 The class needed to represent **3D positions** is `Coordinate3D<Frame, T>`. The type is a template which accepts two parameters: the reference frame (`Frame`) and the type which defines the numerical precision employed for representing the coordinate elements (`T`). The default value for the numerical precision is `double`.
 
-The generic (non-specialized) template struct, can be used with all the default (or [user-defined](../intro#types-customization)) [frame](frames_h#frames-1) types with **[`DirectionalAxis`](frames_h#directional-cartesian-axis) `axis` configuration** (Cartesian frames).
+The generic (non-specialized) template struct, can be used with all the default (or [user-defined](../short_doc#types-customization)) [frame](frames_h#frames-1) types with **[`DirectionalAxis`](frames_h#directional-cartesian-axis) `axis` configuration** (Cartesian frames).
 The struct publicly inherits from [`Vector3D<Frame, T>`](#vectors), allowing it to leverage the same **data storage, constructors and accessors** defined for the vector specializations in the same `Frame`. The class inherit **the standard vector operations** that are mathematically valid for linear, Euclidean spaces. 
 
 ```cpp
@@ -716,7 +716,7 @@ double el_rad = new_aer_pos.elevation(AngleUnit::Rad); // returns 0.1767
 
 The header defines a set of operators that enforce correct affine space mathematics at compile time.
 
-* `operator+ (Coordinate3D, Coordinate3D)`: This operator results in a compile-time error via `static_assert(false, ...)`. Adding two absolute positions is assumed a physically [meaningless operation](../intro#mathematical-operations).
+* `operator+ (Coordinate3D, Coordinate3D)`: This operator results in a compile-time error via `static_assert(false, ...)`. Adding two absolute positions is assumed a physically [meaningless operation](../short_doc#mathematical-operations).
 
 * `operator- (Coordinate3D, Coordinate3D)`: Returns the **displacement** [`Vector3D<Frame, T>`](#vectors) in the same `Frame` of the input coordinates, directed from the left-side operand to the right-side operand. For non-cartesian frames like [`lla`](frames_h#latitude-longitude-altitude-lla), this operation uses specialized logic to handle angular wrap-arounds.
 

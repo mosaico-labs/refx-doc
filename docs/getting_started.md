@@ -27,10 +27,10 @@ target_link_libraries(my_target PRIVATE refx::refx)
 
 ## Requirements
 
-Developing with refx requires only a C++17 compatible compiler, running tests requires Google Test as dependency (downloaded automatically by CMake).
+Developing with refx requires only a C++17 compatible compiler. Running library unit-tests requires [Google Test](https://github.com/google/googletest) as dependency (downloaded automatically by CMake).
 
 ## Ecosystem Integration
-refx is designed to be a self-contained, lightweight library. However, for maximum utility, it provides optional, first-class support for [Eigen3](intro#appendix-eigen3-integration).
+refx is designed to be a self-contained, lightweight library. However, for maximum utility, it provides optional, first-class support for [Eigen3](short_doc#appendix-eigen3-integration).
 
 ## Hands-On Implementation
 
