@@ -1,8 +1,10 @@
 ---
-sidebar_position: 6
+sidebar_position: 7
 ---
 
 # Frame Tags Reference
+
+This page serves as a reference for the standard frame tags available in the `refx` library. Frame tags are metadata used to classify coordinate frames based on their function and type, which is crucial for ensuring type-safe and accurate transformations.
 
 | Tag | Description |
 | :--- | :--- |

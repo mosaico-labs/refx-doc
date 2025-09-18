@@ -42,5 +42,5 @@ export default function Home(): ReactNode {
   //     </main>
   //   </Layout>
   // );
-  return <Redirect to="/refx-doc/doc" />;
+  return <Redirect to="/refx-doc/hello" />;
 }

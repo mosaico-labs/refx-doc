@@ -4,14 +4,14 @@ sidebar_position: 3
 
 # Introduction and Core Concepts
 
-### The `refx` Frame System
+## The `refx` Frame System
 
-The `refx` library's frame system is architected to move the semantics of coordinate frames from runtime properties or implicit conventions into the C++ type system itself. This is achieved through a compositional type architecture, where a frame's semantics are constructed from a set of two fundamental, compile-time entities: its [**axis system**](lib_doc/frames_h#axis-systems) and its [**frame tag**](lib_doc/frames_h#frame-tags).
+The `refx` library's frame system is architected to move the semantics of coordinate frames from runtime properties or implicit conventions into the C++ type system itself. This is achieved through a compositional type architecture, where a frame's semantics are constructed from a set of two fundamental, compile-time entities: its [**axis system**](full_doc/frames_h#axis-systems) and its [**frame tag**](full_doc/frames_h#frame-tags).
 
-1.  [**Axis Systems**](lib_doc/frames_h#axis-systems): This describes the physical structure and properties of the frame's basis, that is the orientation and direction of its orthogonal system of axes. To handle the fundamental differences between coordinate systems, the library provides two parallel axis definition systems:
-      * [**`DirectionalAxis<...>`**](lib_doc/frames_h#directional-cartesian-axis): For right-handed Cartesian frames, this template uses `AxisDirection` enumerators (`Forw`, `Right`, `Up`, etc.) to define the geometric orientation of the X, Y, and Z axes. The library provides [all of the 24](lib_doc/frameaxis#directional-axis-cartesian) possible right-handed frame axis configurations.
-      * [**`SemanticAxis<...>`**](lib_doc/frames_h#semantic-non-cartesian-axis): For non-Cartesian frames (e.g., geodetic or spherical), this template uses `AxisSemantic` enumerators (`Latitude`, `Longitude`, `Altitude`, etc.) to define the physical meaning of each vector component.
-2. [ **`FrameTag`**](lib_doc/frames_h#frame-tags): This `enum class` serves as the highest-level classifier, defining the conceptual domain or category to which a frame belongs (e.g., [`Geocentric`](lib_doc/frames_h#geocentric), [`LocalTangent`](lib_doc/frames_h#localtangent), [`Body`](lib_doc/frames_h#body)). It is the primary mechanism for enforcing high-level logical rules, such as preventing a direct cast between a body-fixed frame and a geocentric one.
+1.  [**Axis Systems**](full_doc/frames_h#axis-systems): This describes the physical structure and properties of the frame's basis, that is the orientation and direction of its orthogonal system of axes. To handle the fundamental differences between coordinate systems, the library provides two parallel axis definition systems:
+      * [**`DirectionalAxis<...>`**](full_doc/frames_h#directional-cartesian-axis): For right-handed Cartesian frames, this template uses `AxisDirection` enumerators (`Forw`, `Right`, `Up`, etc.) to define the geometric orientation of the X, Y, and Z axes. The library provides [all of the 24](full_doc/frameaxis#directional-axis-cartesian) possible right-handed frame axis configurations.
+      * [**`SemanticAxis<...>`**](full_doc/frames_h#semantic-non-cartesian-axis): For non-Cartesian frames (e.g., geodetic or spherical), this template uses `AxisSemantic` enumerators (`Latitude`, `Longitude`, `Altitude`, etc.) to define the physical meaning of each vector component.
+2. [ **`FrameTag`**](full_doc/frames_h#frame-tags): This `enum class` serves as the highest-level classifier, defining the conceptual domain or category to which a frame belongs (e.g., [`Geocentric`](full_doc/frames_h#geocentric), [`LocalTangent`](full_doc/frames_h#localtangent), [`Body`](full_doc/frames_h#body)). It is the primary mechanism for enforcing high-level logical rules, such as preventing a direct cast between a body-fixed frame and a geocentric one.
 
 Some examples of axis definition are the following:
 
@@ -70,7 +70,7 @@ Geometric types are templated on these frame structs, embedding the complete sem
 
   * **Type Safety**: An operation between vectors, coordinates and rotations operators of incompatible frames can be disallowed at compile time, preventing logical and mathematical errors.
 
-  * **Static Polymorphism**: The engines designed for frame transformations (e.g. [`frame_cast`](lib_doc/transformations_h#co-origin-conversion-frame_cast)) can use the axis type traits to deduce the correct component transformations at compile time with zero runtime cost, and assert the invalid transformations between objects of incompatible frames.
+  * **Static Polymorphism**: The engines designed for frame transformations (e.g. [`frame_cast`](full_doc/transformations_h#co-origin-conversion-frame_cast)) can use the axis type traits to deduce the correct component transformations at compile time with zero runtime cost, and assert the invalid transformations between objects of incompatible frames.
 
 This architecture creates a system where the C++ compiler can validate type identity and the underlying physical and mathematical contracts of the frames involved, ensuring that your geometric code is provably correct by construction.
 
@@ -78,11 +78,11 @@ This architecture creates a system where the C++ compiler can validate type iden
 
 ### Coordinate3D: Representing Positions
 
-The [`Coordinate3D<Frame, T>`](lib_doc/geometry_h#coordinates) class represents a position in a specific reference frame; think of it as a single, fixed location.
+The [`Coordinate3D<Frame, T>`](full_doc/geometry_h#coordinates) class represents a position in a specific reference frame; think of it as a single, fixed location.
 
 #### Example: A Local Cartesian Coordinate
 
-In a local frame like [*North-East-Down*](lib_doc/frames_h#north-east-down-ned), a coordinate represents a specific point relative to that frame's origin.
+In a local frame like [*North-East-Down*](full_doc/frames_h#north-east-down-ned), a coordinate represents a specific point relative to that frame's origin.
 
 ```cpp
 //include header for geometry entities
@@ -124,7 +124,7 @@ double lon_rad = turin_gps_fix.longitude(refx::AngleUnit::Rad);
 
 ### Vector3D: Representing Displacement
 
-The [`Vector3D<Frame, T>`](lib_doc/geometry_h#vectors) class represents a displacement, such as a change in position, a velocity, an acceleration, or a force. It is a quantity that has both magnitude and direction.
+The [`Vector3D<Frame, T>`](full_doc/geometry_h#vectors) class represents a displacement, such as a change in position, a velocity, an acceleration, or a force. It is a quantity that has both magnitude and direction.
 
 #### Accessor Naming: The Core Semantic Distinction
 
@@ -144,7 +144,7 @@ double east_speed  = vehicle_velocity.east();  // returns -2.0
 
 
 **Case 2: Non-Linear Frames (LLA, LLD, AER)**
-In a non-linear space like a sphere, a "vector" does not represent a straight line. A [`Vector3D<lla>`](lib_doc/geometry_h#delta-latitude-longitude-altitude) is a differential quantity or an error term: its components are `{Δlat, Δlon, Δalt}`. To prevent the dangerous semantic confusion of treating this as a geometric vector, all accessors are prefixed with `delta_`.
+In a non-linear space like a sphere, a "vector" does not represent a straight line. A [`Vector3D<lla>`](full_doc/geometry_h#delta-latitude-longitude-altitude) is a differential quantity or an error term: its components are `{Δlat, Δlon, Δalt}`. To prevent the dangerous semantic confusion of treating this as a geometric vector, all accessors are prefixed with `delta_`.
 
 ```cpp
 // An error term from a GPS filter, representing a needed correction.
@@ -158,14 +158,14 @@ double alt_correction_m   = gps_error.delta_altitude();   // returns -1.5
 
 ### Mathematical Operations
 
-A key feature of the library is its strict enforcement of mathematically correct operations between [coordinates](lib_doc/geometry_h#arithmetic-operators-1) and [vectors](lib_doc/geometry_h#arithmetic-operators).
+A key feature of the library is its strict enforcement of mathematically correct operations between [coordinates](full_doc/geometry_h#arithmetic-operators-1) and [vectors](full_doc/geometry_h#arithmetic-operators).
 
 | Operation | Result | Mathematical Justification |
 | :--- | :--- | :--- |
-| `Coordinate - Coordinate` | `Vector` | The difference between two coordinates is a displacement vector. |
-| `Coordinate + Vector` | `Coordinate` | Adding a displacement to a coordinate yields a new coordinate. |
-| `Vector + Vector` | `Vector` | Adding two displacements yields a net displacement. |
-| `Coordinate + Coordinate` | Compile-Time Error | This operation is considered physically meaningless and is deleted. |
+| `Coordinate3D - Coordinate3D` | `Vector3D` | The difference between two coordinates is a displacement vector. |
+| `Coordinate3D + Vector3D` | `Coordinate3D` | Adding a displacement to a coordinate yields a new coordinate. |
+| `Vector3D + Vector3D` | `Vector3D` | Adding two displacements yields a net displacement. |
+| `Coordinate3D + Coordinate3D` | Compile-Time Error | This operation is considered physically meaningless and is deleted. |
 
 
 :::info **On the Choice for Coordinate summation**
@@ -174,19 +174,19 @@ The choice to disallow the summation of two Coordinates takes direct inspiration
 :::
 ### Rotations and Orientations
 
-The library provides a clear separation between raw data containers for orientation and the main, frame-aware [`Rotation<FrameTo, FrameFrom, T>`](lib_doc/geometry_h#rotation) class.
+The library provides a clear separation between raw data containers for orientation and the main, frame-aware [`Rotation<FrameTo, FrameFrom, T>`](full_doc/geometry_h#rotation) class.
 
 #### Orientation Representations
 
-**1. [`UnitQuaternion<T>`](lib_doc/geometry_h#unitquaternion):**
+**1. [`UnitQuaternion<T>`](full_doc/geometry_h#unitquaternion):**
 a four-dimensional number `(w, x, y, z)` that provides a complete, unambiguous representation of a 3D rotation. It is the internal gold standard for all rotation calculations within the library due to its efficiency and lack of singularities and gimbal lock.
 
-**2. [`EulerAngles<Seq, T>`](lib_doc/geometry_h#eulerangles):**
-Euler angles represent an orientation as a sequence of three rotations. The library solves the ambiguity problem by making the rotation sequence a compile-time template parameter (e.g., [`EulerAngles<refx::EulerSequence::ZYX, T>`](lib_doc/geometry_h#sequence-zyx-yaw-pitch-roll)).
+**2. [`EulerAngles<Seq, T>`](full_doc/geometry_h#eulerangles):**
+Euler angles represent an orientation as a sequence of three rotations. The library solves the ambiguity problem by making the rotation sequence a compile-time template parameter (e.g., [`EulerAngles<refx::EulerSequence::ZYX, T>`](full_doc/geometry_h#sequence-zyx-yaw-pitch-roll)).
 
 #### The Geometric Operator: `Rotation<ToFrame, FromFrame, T>`
 
-This is the primary, type-safe class for representing a [3D rotation](lib_doc/geometry_h#rotation). It is templated on the source and destination frames, enabling the compiler to validate entire chains of transformations.
+This is the primary, type-safe class for representing a [3D rotation](full_doc/geometry_h#rotation). It is templated on the source and destination frames, enabling the compiler to validate entire chains of transformations.
 
 ```cpp
 // 1. Create a frame-agnostic EulerAngles object (angles in radians)
@@ -212,16 +212,16 @@ refx::Coordinate3D<refx::ned> p_ned = R_ned_frd * p_body;
 
 #### Frame-agnostic Intermediate Rotations
 
-While refx's strict frame awareness is its core safety feature, some advanced algorithms require complex, intermediate calculations where frames are not yet finalized. Forcing frame safety on every single mathematical step can be cumbersome. To handle this, the library promotes a philosophy that separates raw **mathematical data containers** ([`UnitQuaternion`](lib_doc/geometry_h#unitquaternion) or [`EulerAngles<Seq, T>`](lib_doc/geometry_h#eulerangles)) from its final geometric meaning, that is the **geometrically-aware types** (`Rotation`). This gives you the flexibility to perform complex calculations on a *scratchpad* before stamping the *final report* with a type-safe frame.
+While refx's strict frame awareness is its core safety feature, some advanced algorithms require complex, intermediate calculations where frames are not yet finalized. Forcing frame safety on every single mathematical step can be cumbersome. To handle this, the library promotes a philosophy that separates raw **mathematical data containers** ([`UnitQuaternion`](full_doc/geometry_h#unitquaternion) or [`EulerAngles<Seq, T>`](full_doc/geometry_h#eulerangles)) from its final geometric meaning, that is the **geometrically-aware types** (`Rotation`). This gives you the flexibility to perform complex calculations on a *scratchpad* before stamping the *final report* with a type-safe frame.
 
-  * **The *Scratchpad***: refx provides the raw mathematical type [`UnitQuaternion<T>`](lib_doc/geometry_h#unitquaternion) as your scratchpad. It is a pure data container with all the necessary mathematical operators (for composition, inversion, etc.), but it carry **no frame information**: you have complete freedom to multiply and manipulate it as needed for your calculations. To ease building complex rotations, the class provides three static factory functions for creating the fundamental building blocks:
+  * **The *Scratchpad***: refx provides the raw mathematical type [`UnitQuaternion<T>`](full_doc/geometry_h#unitquaternion) as your scratchpad. It is a pure data container with all the necessary mathematical operators (for composition, inversion, etc.), but it carry **no frame information**: you have complete freedom to multiply and manipulate it as needed for your calculations. To ease building complex rotations, the class provides three static factory functions for creating the fundamental building blocks:
       * **`from_rotation_x(T angle)`**
       * **`from_rotation_y(T angle)`**
       * **`from_rotation_z(T angle)`**
 
       Each one of these functions returns the quaternion corresponding to an elementary rotation around the X, Y or Z axis, respectively.
 
-  * **The Final Report**: Once your complex, multi-step calculation is complete, you take the final result from your scratchpad (the final quaternion) and give it a clear, geometric meaning. You do this by constructing a [`Rotation<ToFrame, FromFrame>`](lib_doc/geometry_h#rotation) from it. From this point on, the compiler's safety checks are in full effect. Note that if the [Eigen support](#appendix-eigen3-integration) is enabled, a rotation object can be contructed starting from an Eigen rotation matrix defined by the user, which augment the power of representation of the library.
+  * **The Final Report**: Once your complex, multi-step calculation is complete, you take the final result from your scratchpad (the final quaternion) and give it a clear, geometric meaning. You do this by constructing a [`Rotation<ToFrame, FromFrame>`](full_doc/geometry_h#rotation) from it. From this point on, the compiler's safety checks are in full effect. Note that if the [Eigen support](#appendix-eigen3-integration) is enabled, a rotation object can be contructed starting from an Eigen rotation matrix defined by the user, which augment the power of representation of the library.
 
 This two-step process gives you the best of both worlds:
 1.  **Flexibility**: You can perform complex, multi-step calculations with raw mathematical types without the constraints of the frame system getting in your way.
@@ -245,7 +245,7 @@ This two-step process gives you the best of both worlds:
 
 #### Practical Example: Geodetic to Local Rotation
 
-Let's use a typical example in the inertial navigation context of creating the rotation from an [ECEF (Earth-Centered, Earth-Fixed)](lib_doc/frames_h#earth-centered-earth-fixed-ecef) frame to a local [NED (North-East-Down)](lib_doc/frames_h#north-east-down-ned) frame at a given latitude and longitude. This is typically done by composing three separate rotations: one around the y-axis of pi/2, one around the y-axis involving the latitude and another rotation around the z-axis involving the (negative) longitude, to align the resulting axes.
+Let's use a typical example in the inertial navigation context of creating the rotation from an [ECEF (Earth-Centered, Earth-Fixed)](full_doc/frames_h#earth-centered-earth-fixed-ecef) frame to a local [NED (North-East-Down)](full_doc/frames_h#north-east-down-ned) frame at a given latitude and longitude. This is typically done by composing three separate rotations: one around the y-axis of pi/2, one around the y-axis involving the latitude and another rotation around the z-axis involving the (negative) longitude, to align the resulting axes.
 
 Here is how you would do it the refx way:
 
@@ -282,7 +282,7 @@ refx::Rotation<refx::ned, refx::ecef> create_R_ned_from_ecef(double lat_rad, dou
 
 ### Representing Full Pose (SE(3))
 
-The [`Transformation<FrameTo, FrameFrom, T>`](lib_doc/geometry_h#transformations) represents the complete **pose**—that is, the combined **position and orientation**—of one coordinate frame relative to another. Mathematically, this object models a **rigid body transformation** in 3D space, in the classical mathematical formulation of the **Special Euclidean group, SE(3)**, which is the standard mathematical tool for describing pose in robotics, 3D graphics, and mechanics. It's the primary tool for representing concepts like:
+The [`Transformation<FrameTo, FrameFrom, T>`](full_doc/geometry_h#transformations) represents the complete **pose**—that is, the combined **position and orientation**—of one coordinate frame relative to another. Mathematically, this object models a **rigid body transformation** in 3D space, in the classical mathematical formulation of the **Special Euclidean group, SE(3)**, which is the standard mathematical tool for describing pose in robotics, 3D graphics, and mechanics. It's the primary tool for representing concepts like:
 
   * The complete pose of a vehicle in the navigation frame.
   * The extrinsic calibration of a sensor on a robot's body.
@@ -292,11 +292,11 @@ The [`Transformation<FrameTo, FrameFrom, T>`](lib_doc/geometry_h#transformations
 
 The `Transformation` struct is composed of two key members:
 
-1.  **`rotation`**: A [`refx::Rotation<ToFrame, FromFrame, T>`](lib_doc/geometry_h#rotation)
+1.  **`rotation`**: A [`refx::Rotation<ToFrame, FromFrame, T>`](full_doc/geometry_h#rotation)
 
       * This member describes the **orientation** of the source frame (`FromFrame`)'s axes as viewed from the destination frame (`ToFrame`).
 
-2.  **`translation`**: A [`refx::Vector3D<ToFrame, T>`](lib_doc/geometry_h#vectors)
+2.  **`translation`**: A [`refx::Vector3D<ToFrame, T>`](full_doc/geometry_h#vectors)
 
       * This member describes the **displacement** of the `FromFrame`'s origin relative to the `ToFrame`'s origin; this translation vector is expressed in the coordinate system of the **`ToFrame`**.
 
@@ -357,23 +357,23 @@ These models are layered, building from a basic geometric definition to a unifie
 
 ### `ReferenceEllipsoid`
 
-The foundation of all geodetic calculations is a model of the Earth's shape. The [**`ReferenceEllipsoid`**](lib_doc/models_h#reference-ellipsoid) class stores the defining constants of an oblate spheroid that approximates the Earth's geoid.
+The foundation of all geodetic calculations is a model of the Earth's shape. The [**`ReferenceEllipsoid`**](full_doc/models_h#reference-ellipsoid) class stores the defining constants of an oblate spheroid that approximates the Earth's geoid.
 
   * **Purpose**: Provides the fundamental geometric datum (size, shape, flattening) for all calculations.
   * **Standards**: The library includes pre-defined models for the most common standards:
-      * [**`ReferenceEllipsoidWGS84`**](lib_doc/models_h#wgs-84): The World Geodetic System 1984, which is the standard for GPS. This is the recommended default.
-      * [**`ReferenceEllipsoidGRS80`**](lib_doc/models_h#grs-80): The Geodetic Reference System 1980, widely used in surveying and geodesy.
+      * [**`ReferenceEllipsoidWGS84`**](full_doc/models_h#wgs-84): The World Geodetic System 1984, which is the standard for GPS. This is the recommended default.
+      * [**`ReferenceEllipsoidGRS80`**](full_doc/models_h#grs-80): The Geodetic Reference System 1980, widely used in surveying and geodesy.
 
 ### `GravityModel`
 
-Built upon a specific `ReferenceEllipsoid`, the [**`GravityModel`**](lib_doc/models_h#gravity-model) class provides a mathematical model of the Earth's theoretical "normal" gravity field. The model provides two modes for height compensation of the gravity norm, the **Free-Air** correction, reasonably accurate for altitudes typical of most robotics and aerospace applications, and the **Ellipsoidal** (Moritz, 1980) correction, which provides higher accuracy by accounting for the non-spherical ellipsoidal) shape of the Earth.
+Built upon a specific `ReferenceEllipsoid`, the [**`GravityModel`**](full_doc/models_h#gravity-model) class provides a mathematical model of the Earth's theoretical "normal" gravity field. The model provides two modes for height compensation of the gravity norm, the **Free-Air** correction, reasonably accurate for altitudes typical of most robotics and aerospace applications, and the **Ellipsoidal** (Moritz, 1980) correction, which provides higher accuracy by accounting for the non-spherical ellipsoidal) shape of the Earth.
   * **Purpose**: To calculate the magnitude of the gravity vector at any given latitude and altitude.
   * **Primary Use Case**: **Gravity compensation** for inertial navigation systems (INS). An accelerometer measures both motion and gravity; this model allows you to subtract the gravity component to isolate the true acceleration.
-  * **Standards**: Includes the [**`GravityModelWGS84`**](lib_doc/models_h#wgs-84-1) which corresponds to the WGS-84 ellipsoid.
+  * **Standards**: Includes the [**`GravityModelWGS84`**](full_doc/models_h#wgs-84-1) which corresponds to the WGS-84 ellipsoid.
 
 ### `EarthModel`
 
-The [**`EarthModel`**](lib_doc/models_h#earth-model) is the primary high-level class that users will typically interact with. It bundles the `ReferenceEllipsoid`, `GravityModel`, and an optional `MagneticFieldModel` into a single, convenient context object.
+The [**`EarthModel`**](full_doc/models_h#earth-model) is the primary high-level class that users will typically interact with. It bundles the `ReferenceEllipsoid`, `GravityModel`, and an optional `MagneticFieldModel` into a single, convenient context object.
 
   * **Purpose**: To provide a single, authoritative source for all Earth-related physical constants and derived values.
   * **Features**: It offers simple methods to get critical navigation parameters like:
@@ -413,13 +413,13 @@ double local_gravity = earth_model.gravity(current_position,
 
 ### `frame_cast`: Co-Origin Conversions
 
-The [`frame_cast<To>(from)`](lib_doc/transformations_h#co-origin-conversion-frame_cast) function is a lightweight, highly-efficient utility for simple conversions between frames that are **co-located** — that is, they share the same origin but have different axis conventions. The conversion mechanism is resolved entirely at compile time and employs C++ metaprogramming to deduce the correct transformation logic directly from the [`DirectionalAxis`](lib_doc/frames_h#directional-cartesian-axis) types that define the frames, via compile-time shuffling engine.
+The [`frame_cast<To>(from)`](full_doc/transformations_h#co-origin-conversion-frame_cast) function is a lightweight, highly-efficient utility for simple conversions between frames that are **co-located** — that is, they share the same origin but have different axis conventions. The conversion mechanism is resolved entirely at compile time and employs C++ metaprogramming to deduce the correct transformation logic directly from the [`DirectionalAxis`](full_doc/frames_h#directional-cartesian-axis) types that define the frames, via compile-time shuffling engine.
 
 The mechanism works as follows:
 1.  **Compile-Time Reflection**: The engine reflects on the template parameters of the source and target `DirectionalAxis` types (e.g., `<Forw, Right, Down>` for `axis_frd`).
 2.  **Component Projection**: To construct the new vector, it determines the value for each of its components: it infers the component of the source vector (`x`, `y`, or `z`) which aligns with the direction of each of the target axis, and with what sign.
 
-The entire logic is resolved by the compiler, which then generates the minimal, optimal machine code to perform the component shuffling and sign changes. This automatic mechanism works for [all the 24](lib_doc/frameaxis#directional-axis-cartesian) right-handed frame axis that the library defines, and so no additional work has to be made when an user adds new custom **Cartesian** reference frames, which necessarily are based on one of the standard axis semantics.
+The entire logic is resolved by the compiler, which then generates the minimal, optimal machine code to perform the component shuffling and sign changes. This automatic mechanism works for [all the 24](full_doc/frameaxis#directional-axis-cartesian) right-handed frame axis that the library defines, and so no additional work has to be made when an user adds new custom **Cartesian** reference frames, which necessarily are based on one of the standard axis semantics.
 
 #### Common Use Cases
 
@@ -488,16 +488,16 @@ auto cartesian_coord = refx::frame_cast<refx::ned>(geodetic_coord);
 ```
 
 :::info **more on the Category Safety Check**
-A key architectural decision enforced by `frame_cast` is the compile-time check on the frame category; this assertion is not arbitrary. The `frame_cast` API is designed exclusively for re-expressing a vector between frames that are **co-located** (i.e., share the same origin). This is a purely rotational or axis-shuffling operation. Frames within the same category, such as [`FrameTag::Body`](lib_doc/frames_h#body) or [`FrameTag::Sensor`](lib_doc/frames_h#sensor), are assumed to be co-located by default, making `frame_cast` the appropriate tool.
+A key architectural decision enforced by `frame_cast` is the compile-time check on the frame category; this assertion is not arbitrary. The `frame_cast` API is designed exclusively for re-expressing a vector between frames that are **co-located** (i.e., share the same origin). This is a purely rotational or axis-shuffling operation. Frames within the same category, such as [`FrameTag::Body`](full_doc/frames_h#body) or [`FrameTag::Sensor`](full_doc/frames_h#sensor), are assumed to be co-located by default, making `frame_cast` the appropriate tool.
 
-Transformations between different categories, such as from a `FrameTag::Body` frame to a `FrameTag::Sensor` frame, typically represent a physical mounting or calibration. These transformations almost always involve not just a rotation but also a translation due to a lever arm, which are mathematically represented by a full SE(3) Pose. For these more complex transformations, the correct tool is the [**`Transformation<frameTo, frameFrom, T>`**](lib_doc/geometry_h#transformations) class, which is designed to handle the complete pose (both orientation and position).
+Transformations between different categories, such as from a `FrameTag::Body` frame to a `FrameTag::Sensor` frame, typically represent a physical mounting or calibration. These transformations almost always involve not just a rotation but also a translation due to a lever arm, which are mathematically represented by a full SE(3) Pose. For these more complex transformations, the correct tool is the [**`Transformation<frameTo, frameFrom, T>`**](full_doc/geometry_h#transformations) class, which is designed to handle the complete pose (both orientation and position).
 :::
 
 ### `frame_transform`: Context-Dependent Transformations
 
-The [`frame_transform(...)`](lib_doc/transformations_h#complex-transformations-frame_transform) function is designed for complex transformations that are not simple axis shuffles. It is required whenever a transformation involves a change of origin or a conversion between fundamentally different types of coordinate systems (e.g., geodetic and Cartesian). 
+The [`frame_transform(...)`](full_doc/transformations_h#complex-transformations-frame_transform) function is designed for complex transformations that are not simple axis shuffles. It is required whenever a transformation involves a change of origin or a conversion between fundamentally different types of coordinate systems (e.g., geodetic and Cartesian). 
 
-A primary application of the `frame_transform` function is to perform transformations between frames of fundamentally different natures: from a [`DirectionalAxis`](lib_doc/frames_h#directional-cartesian-axis) (Cartesian) to a [`SemanticAxis`](lib_doc/frames_h#semantic-non-cartesian-axis) (e.g., spherical or geodetic), and vice versa. Unlike the case of `frame_cast`, such transformation does not imply a simple axis shuffle, being the two reference frames described in a different geometric space. The function does not require any other context than the object to be converted:
+A primary application of the `frame_transform` function is to perform transformations between frames of fundamentally different natures: from a [`DirectionalAxis`](full_doc/frames_h#directional-cartesian-axis) (Cartesian) to a [`SemanticAxis`](full_doc/frames_h#semantic-non-cartesian-axis) (e.g., spherical or geodetic), and vice versa. Unlike the case of `frame_cast`, such transformation does not imply a simple axis shuffle, being the two reference frames described in a different geometric space. The function does not require any other context than the object to be converted:
 ```cpp
 /// @brief Transforms a vector/coordinate between two co-located frames, with different axis semantics (axis_aer <-> cartesian)
 template <typename frameTo, typename frameFrom, template <class, class> class VecType, typename T>
@@ -531,7 +531,7 @@ VecType<frameTo, T> frame_transform(const Transformation<frameTo, frameFrom, T>&
 
 #### Use Case 1: Global-to-Global Transformation (`lla` ↔ `ecef`)
 
-This is the most direct type of transformation. It converts geodetic coordinates to the Earth-Centered, Earth-Fixed (ECEF) Cartesian frame. This is useful for getting a true 3D position in a global Cartesian system. The only context required is the [`EarthModel`](lib_doc/models_h#earth-model).
+This is the most direct type of transformation. It converts geodetic coordinates to the Earth-Centered, Earth-Fixed (ECEF) Cartesian frame. This is useful for getting a true 3D position in a global Cartesian system. The only context required is the [`EarthModel`](full_doc/models_h#earth-model).
 
 ```cpp
 // Required context: just the Earth model
@@ -660,8 +660,8 @@ A custom frame is a simple `struct` that composes the three semantic primitives:
 You need to define:
 
 1.  A `static constexpr auto name`: A string identifier for debugging or interoperability.
-2.  A `static constexpr FrameTag tag`: The conceptual category ([`FrameTag::Body`](lib_doc/frames_h#body), [`FrameTag::Sensor`](lib_doc/frames_h#sensor), etc.) the frame belongs to.
-3.  A `using axis`: An alias to one of the 24 pre-defined [`DirectionalAxis`](lib_doc/frames_h#directional-cartesian-axis) types (e.g., [`axis_frd`, `axis_rfu`](lib_doc/frameaxis#directional-axis-cartesian)) that matches the physical orientation of your frame's axes.
+2.  A `static constexpr FrameTag tag`: The conceptual category ([`FrameTag::Body`](full_doc/frames_h#body), [`FrameTag::Sensor`](full_doc/frames_h#sensor), etc.) the frame belongs to.
+3.  A `using axis`: An alias to one of the 24 pre-defined [`DirectionalAxis`](full_doc/frames_h#directional-cartesian-axis) types (e.g., [`axis_frd`, `axis_rfu`](full_doc/frameaxis#directional-axis-cartesian)) that matches the physical orientation of your frame's axes.
 
 Let's define a frame for a `laser_scanner` sensor. Assume its axes are oriented according to the `axis_flu` (Forward-Left-Up) convention and it's part of the `FrameTag::Sensor` category.
 
@@ -688,7 +688,7 @@ struct laser_scanner {
 
 ### Step 2 (Optional): Specialize `Vector3D` for Semantic Accessors
 
-By default, you can create vectors in your new frame using the standard `.x()`, `.y()`, and `.z()` accessors, `refx::Vector3D<my_robot::laser_scanner> vec;`. However, for improved code clarity, you can provide an optional [`Vector3D` specialization](lib_doc/geometry_h#specializations-for-cartesian-frames) to add meaningful accessors that correspond to your frame's axes.
+By default, you can create vectors in your new frame using the standard `.x()`, `.y()`, and `.z()` accessors, `refx::Vector3D<my_robot::laser_scanner> vec;`. However, for improved code clarity, you can provide an optional [`Vector3D` specialization](full_doc/geometry_h#specializations-for-cartesian-frames) to add meaningful accessors that correspond to your frame's axes.
 
 **`my_robot_vectors.h`**
 

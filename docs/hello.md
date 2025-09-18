@@ -11,10 +11,14 @@ The library's core philosophy is the separation of a frame's name, its axis stru
 ## Key Features
 
   * **Compile-Time Safety**: Enforces frame-aware mathematics for vectors, rotations, and transformations. Operations between incompatible frames are caught by the compiler.
-  * **Expressive Geometry Types**: Provides strongly-typed classes like [`Vector3D<Frame>`](lib_doc/geometry_h#vectors), [`Coordinate3D<Frame>`](lib_doc/geometry_h#coordinates), [`Rotation<To, From>`](lib_doc/geometry_h#rotation), and [`Transformation<To, From>`](lib_doc/geometry_h#transformations).
-  * **Comprehensive Frame System**: Includes a rich set of predefined geodetic, local-tangent, body, and sensor frames ([`lla`](lib_doc/frames_h#latitude-longitude-altitude-lla), [`ned`](lib_doc/frames_h#north-east-down-ned), [`frd`](lib_doc/frames_h#forward-right-down-frd), [`imu`](lib_doc/frames_h#imu-imu), etc.) and is fully extensible with user-defined frames.
-  * **High-Fidelity Models**: Ships with standard [geodetic models](lib_doc/models_h#earth-model), including [**WGS-84**](https://en.wikipedia.org/wiki/World_Geodetic_System) and [**GRS-80**](https://en.wikipedia.org/wiki/Geodetic_Reference_System_1980) [reference ellipsoids](lib_doc/models_h#reference-ellipsoid) and [gravity models](lib_doc/models_h#gravity-model), for accurate real-world calculations.
-  * **Powerful Transformation API**: Offers a unified API with [`frame_cast`](lib_doc/transformations_h#co-origin-conversion-frame_cast) for simple co-origin conversions and [`frame_transform`](lib_doc/transformations_h#complex-transformations-frame_transform) for complex, model-based geodetic projections.
+  * **Expressive Geometry Types**: Provides strongly-typed classes like [`Vector3D<Frame>`](full_doc/geometry_h#vectors), [`Coordinate3D<Frame>`](full_doc/geometry_h#coordinates), [`Rotation<To, From>`](full_doc/geometry_h#rotation), and [`Transformation<To, From>`](full_doc/geometry_h#transformations).
+  * **Comprehensive Frame System**: Includes a rich set of predefined geodetic, local-tangent, body, and sensor frames ([`lla`](full_doc/frames_h#latitude-longitude-altitude-lla), [`ned`](full_doc/frames_h#north-east-down-ned), [`frd`](full_doc/frames_h#forward-right-down-frd), [`imu`](full_doc/frames_h#imu-imu), etc.) and is fully extensible with user-defined frames.
+  * **High-Fidelity Models**: Ships with standard [geodetic models](full_doc/models_h#earth-model), including [**WGS-84**](https://en.wikipedia.org/wiki/World_Geodetic_System) and [**GRS-80**](https://en.wikipedia.org/wiki/Geodetic_Reference_System_1980) [reference ellipsoids](full_doc/models_h#reference-ellipsoid) and [gravity models](full_doc/models_h#gravity-model), for accurate real-world calculations.
+  * **Powerful Transformation API**: Offers a unified API with [`frame_cast`](full_doc/transformations_h#co-origin-conversion-frame_cast) for simple co-origin conversions and [`frame_transform`](full_doc/transformations_h#complex-transformations-frame_transform) for complex, model-based geodetic projections.
+
+## Requirements
+
+Developing with refx requires only a C++17 compatible compiler. Running library unit-tests requires [Google Test](https://github.com/google/googletest) as dependency (downloaded automatically by CMake).
 
 ## Safety Through Types
 
