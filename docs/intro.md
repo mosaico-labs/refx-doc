@@ -235,7 +235,7 @@ This two-step process gives you the best of both worlds:
 - Rz(θ) = [[cosθ, -sinθ, 0], [sinθ, cosθ, 0], [0, 0, 1]]
  <table>
    <tr>
-     <td><img src="/img/Rotation_of_coordinates.svg" alt="Rotation of coordinates" width="1000"/></td>
+     <td><img src="/refx-doc/img/Rotation_of_coordinates.svg" alt="Rotation of coordinates" width="1000"/></td>
      <td>
        <b>Figure 1:</b> Example (positive) rotation around the z-axis. The resulting matrix Rz(theta) transforms vectors from the rotated frame (x′, y′) back to the original reference frame (x, y): P(x, y) = Rz(theta) P(x′, y′). For instance, the point x' = 1, y' = 0 in the frame (x,y) is [cos(theta), sin(theta)]
     </td>
@@ -640,8 +640,8 @@ auto detection_in_camera_frame = refx::Coordinate3D<refx::camera>(0.0, 0.0, 30.0
 // 3. Apply the Transformation to Calibrate the Measurement
 // Use frame_transform to convert the raw detection into the vehicle's frame.
 auto detection_in_vehicle_frame = refx::frame_transform(
-    detection_in_camera_frame, // The raw measurement
-    T_vehicle_from_camera      // The extrinsic calibration transform
+    T_vehicle_from_camera,      // The extrinsic calibration transform
+    detection_in_camera_frame   // The raw measurement
 );
 
 // The result is the object's position relative to the vehicle's center,
