@@ -38,19 +38,19 @@ const config: Config = {
   },
 
   // Place the plugin at the top level
-  plugins: [
-    [
-      require.resolve("@easyops-cn/docusaurus-search-local"),
-      {
-        hashed: true,
-        indexBlog: false,
-        docsRouteBasePath: "/",
-        highlightSearchTermsOnTargetPage: true,
-        explicitSearchResultPath: true,
-        language: ["en"],
-      },
-    ],
-  ],
+  // plugins: [
+  //   [
+  //     require.resolve("@easyops-cn/docusaurus-search-local"),
+  //     {
+  //       hashed: true,
+  //       indexBlog: false,
+  //       docsRouteBasePath: "/",
+  //       highlightSearchTermsOnTargetPage: true,
+  //       explicitSearchResultPath: true,
+  //       language: ["en"],
+  //     },
+  //   ],
+  // ],
 
   presets: [
     [
