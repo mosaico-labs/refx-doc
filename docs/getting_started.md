@@ -9,6 +9,8 @@ Let's discover **refx in less than 5 minutes**.
 Using `refx` is straightforward. The following steps demonstrate the core features of the library: creating frame-aware vectors and coordinates, leveraging compile-time safety, and performing transformations.
 
 ## Installation
+
+### CMake
 Here's the code you'd add to your project's `CMakeLists.txt` file to import the refx library.
 ```cmake
 include(FetchContent)
@@ -24,6 +26,11 @@ From this point on, the `refx::refx` target is available to your project and thi
 ```cmake
 target_link_libraries(my_target PRIVATE refx::refx)
 ```
+
+### Conan
+You can install refx using Conan via the [valgur/conan-center-index](https://github.com/valgur/conan-center-index) repository.
+
+Special thanks to [@valgur](https://github.com/valgur) for adding Conan support.
 
 ## Requirements
 
